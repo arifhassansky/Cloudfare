@@ -2,12 +2,7 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
-import {
-  IoHeart,
-  IoHeartOutline,
-  IoShareSocialOutline,
-  IoStar,
-} from "react-icons/io5";
+import { IoStar } from "react-icons/io5";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,11 +11,8 @@ const ProductDetailsPage = () => {
   const { id } = useParams();
   const { items } = useSelector((state) => state.products);
   const product = items?.data?.find((p) => p.id == id);
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [selectedSize, setSelectedSize] = useState("M");
-  const [selectedColor, setSelectedColor] = useState("");
 
   if (!product) {
     return (
@@ -53,7 +45,7 @@ const ProductDetailsPage = () => {
 
   return (
     <div className="md:p-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 p-8">
         {/* Image Section */}
         <div className="relative">
           <div className="flex">
@@ -64,36 +56,20 @@ const ProductDetailsPage = () => {
                 className="w-[300px] h-[400px] object-contain"
               />
             </div>
-            <div className="flex flex-col justify-between gap-[15px] ml-[20px]">
-              <div className="flex flex-col gap-[10px]">
-                <button className="bg-gray-100 rounded-md w-max text-gray-600 p-2.5 hover:bg-gray-200">
-                  <IoShareSocialOutline className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setIsFavorite(!isFavorite)}
-                  className="bg-gray-100 rounded-md w-max text-gray-600 p-2.5 hover:bg-gray-200"
-                >
-                  {isFavorite ? (
-                    <IoHeart className="w-5 h-5 text-red-500" />
-                  ) : (
-                    <IoHeartOutline className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
-              <div className="flex flex-col gap-[10px]">
-                <button
-                  onClick={prevImage}
-                  className="bg-gray-100 rounded-md w-max p-2 hover:bg-gray-200"
-                >
-                  <BiChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="bg-gray-100 rounded-md w-max p-2 hover:bg-gray-200"
-                >
-                  <BiChevronRight className="w-6 h-6" />
-                </button>
-              </div>
+
+            <div className="flex flex-col gap-[10px]">
+              <button
+                onClick={prevImage}
+                className="bg-gray-100 rounded-md w-max p-2 hover:bg-gray-200"
+              >
+                <BiChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="bg-gray-100 rounded-md w-max p-2 hover:bg-gray-200"
+              >
+                <BiChevronRight className="w-6 h-6" />
+              </button>
             </div>
           </div>
           <div className="scrollbar flex w-full md:w-[87%] gap-2 mt-4 overflow-x-auto">
